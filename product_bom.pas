@@ -12,11 +12,49 @@ type
   TProduct = class;
   TProductList = class;
 
+  TProductCategory = class;
+  TProductCategoryList = class;
+
+  { TProductCategory }
+
+  TProductCategory = class(TtiObject)
+  private
+    FDescription: string;
+    procedure SetDescription(AValue: string);
+  protected
+    function  GetOwner: TProductCategoryList; reintroduce;
+    procedure SetOwner(const Value: TProductCategoryList); reintroduce;
+    function GetCaption: string;
+  public
+    property  Owner: TProductCategoryList read GetOwner write SetOwner;
+  published
+    property  Description: string read FDescription write SetDescription;
+    property Caption: string read GetCaption;
+  end;
+
+  { TProductCategoryList }
+
+  TProductCategoryList = class(TtiObjectList)
+  private
+  protected
+    function  GetItems(i: integer): TProductCategory; reintroduce;
+    procedure SetItems(i: integer; const Value: TProductCategory); reintroduce;
+    //function  GetOwner: TOwnerClass; reintroduce;
+    //procedure SetOwner(const Value: TOwnerClass); reintroduce;
+  public
+    property  Items[i:integer]: TProductCategory read GetItems write SetItems;
+    procedure Add(AObject:TProductCategory); reintroduce;
+    //property  Owner: TOwnerClass read GetOwner write SetOwner;
+  published
+  end;
+
   { TProduct }
 
   TProduct = class(TtiObject)
   private
+    FCategory: TProductCategory;
     FDescription: string;
+    procedure SetCategory(AValue: TProductCategory);
     procedure SetDescription(AValue: string);
   protected
     function  GetOwner: TProductList; reintroduce;
@@ -25,6 +63,7 @@ type
     property  Owner: TProductList read GetOwner write SetOwner;
   published
     property Description: string read FDescription write SetDescription;
+    property Category: TProductCategory read FCategory write SetCategory;
   end;
 
   { TProductList }
@@ -46,6 +85,50 @@ type
 
 
 implementation
+
+{ TMarkObject }
+
+{ TProductCategoryList }
+
+function TProductCategoryList.GetItems(i: integer): TProductCategory;
+begin
+  result := TProductCategory(inherited GetItems(i));
+end;
+
+procedure TProductCategoryList.SetItems(i: integer; const Value: TProductCategory
+  );
+begin
+  inherited SetItems(i, Value);
+end;
+
+procedure TProductCategoryList.Add(AObject: TProductCategory);
+begin
+  inherited Add(AObject);
+end;
+
+{ TProductCategory }
+
+procedure TProductCategory.SetDescription(AValue: string);
+begin
+  if FDescription=AValue then Exit;
+  FDescription:=AValue;
+end;
+
+function TProductCategory.GetOwner: TProductCategoryList;
+begin
+  result := TProductCategoryList(inherited GetOwner);
+end;
+
+procedure TProductCategory.SetOwner(const Value: TProductCategoryList);
+begin
+  inherited SetOwner(Value);
+end;
+
+function TProductCategory.GetCaption: string;
+begin
+  result := Description;
+end;
+
 
 { TProductList }
 
@@ -88,6 +171,13 @@ begin
   NotifyObservers;
 end;
 
+procedure TProduct.SetCategory(AValue: TProductCategory);
+begin
+  if FCategory=AValue then Exit;
+  FCategory:=AValue;
+  NotifyObservers;
+end;
+
 function TProduct.GetOwner: TProductList;
 begin
   result := TProductList(inherited GetOwner);
@@ -97,6 +187,7 @@ procedure TProduct.SetOwner(const Value: TProductList);
 begin
   inherited SetOwner(Value);
 end;
+
 
 end.
 

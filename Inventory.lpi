@@ -33,7 +33,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="4">
       <Unit0>
         <Filename Value="Inventory.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -46,6 +46,15 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ProductForm"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="product_bom.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="product_BOM"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="inventorymanager.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
