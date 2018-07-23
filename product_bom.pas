@@ -70,7 +70,7 @@ type
 
   TProductList = class(TtiObjectList)
   private
-    procedure SetOwner(AValue: TProduct);
+    //procedure SetOwner(AValue: TProduct);
   protected
     function  GetItems(i: integer): TProduct; reintroduce;
     procedure SetItems(i: integer; const Value: TProduct); reintroduce;
@@ -132,10 +132,10 @@ end;
 
 { TProductList }
 
-procedure TProductList.SetOwner(AValue: TProduct);
-begin
-  inherited SetOwner(AValue);
-end;
+//procedure TProductList.SetOwner(AValue: TProduct);
+//begin
+//  inherited SetOwner(AValue);
+//end;
 
 function TProductList.GetItems(i: integer): TProduct;
 begin
