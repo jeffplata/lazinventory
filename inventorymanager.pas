@@ -49,6 +49,8 @@ procedure TInventoryManager.LoadCategories;
 var
   C: TProductCategory;
 begin
+
+  ProductCategoryList.Clear;
   C:= TProductCategory.Create;
   C.Description:= 'Soft Drinks';
   ProductCategoryList.Add(C);
@@ -83,6 +85,7 @@ var
 begin
   LoadCategories;
 
+  FProductList.Clear;
   P := TProduct.Create;
   P.Description:= 'Coca Cola';
   P.Category:= TProductCategory(FProductCategoryList[0]);

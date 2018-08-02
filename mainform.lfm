@@ -1,0 +1,44 @@
+object frmMain: TfrmMain
+  Left = 308
+  Height = 367
+  Top = 198
+  Width = 635
+  Caption = 'Inventory System'
+  Menu = MainMenu1
+  LCLVersion = '1.8.2.0'
+  object MainMenu1: TMainMenu
+    left = 104
+    top = 24
+    object MenuItem3: TMenuItem
+      Caption = '&File'
+      object MenuItem12: TMenuItem
+        Action = FileExit1
+      end
+    end
+    object MenuItem1: TMenuItem
+      Caption = 'System'
+      object MenuItem2: TMenuItem
+        Action = actProducts
+      end
+      object MenuItem4: TMenuItem
+        Caption = 'Categories'
+      end
+      object MenuItem5: TMenuItem
+        Caption = 'Departments'
+      end
+    end
+  end
+  object ActionList1: TActionList
+    left = 40
+    top = 24
+    object actProducts: TAction
+      Caption = 'Products'
+      OnExecute = actProductsExecute
+    end
+    object FileExit1: TFileExit
+      Category = 'File'
+      Caption = 'E&xit'
+      Hint = 'Exit'
+    end
+  end
+end

@@ -15,9 +15,9 @@ uses
 
 type
 
-  { TForm1 }
+  { TfrmProducts }
 
-  TForm1 = class(TForm)
+  TfrmProducts = class(TForm)
     cmbCategory: TComboBox;
     edtProductName: TEdit;
     Label1: TLabel;
@@ -40,7 +40,9 @@ type
   end;
 
 var
-  Form1: TForm1;
+  frmProducts: TfrmProducts;
+
+procedure ShowProductsForm;
 
 implementation
 
@@ -48,11 +50,23 @@ uses
   inventorymanager
   ;
 
+procedure ShowProductsForm;
+var
+  F : TfrmProducts;
+begin
+  F := TfrmProducts.Create(Application);
+  try
+    F.ShowModal;
+  finally
+    F.Free;
+  end;
+end;
+
 {$R *.lfm}
 
-{ TForm1 }
+{ TfrmProducts }
 
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TfrmProducts.FormCreate(Sender: TObject);
 begin
   RegisterFallBackMediators;
   RegisterFallBackListmediators;
@@ -63,19 +77,19 @@ begin
 end;
 
 
-procedure TForm1.sgProductListClick(Sender: TObject);
+procedure TfrmProducts.sgProductListClick(Sender: TObject);
 begin
   Product := TProduct(FMediator.SelectedObject[sgProductList]);
 end;
 
 
-procedure TForm1.SetData(AValue: TProductList);
+procedure TfrmProducts.SetData(AValue: TProductList);
 begin
   if FData=AValue then Exit;
   FData:=AValue;
 end;
 
-procedure TForm1.SetProduct(AValue: TProduct);
+procedure TfrmProducts.SetProduct(AValue: TProduct);
 begin
   if FProduct=AValue then Exit;
   FProduct:=AValue;
@@ -90,13 +104,13 @@ begin
   FProductMediator.Active:= True;
 end;
 
-procedure TForm1.SetupMediators;
+procedure TfrmProducts.SetupMediators;
 begin
   if not assigned(FMediator) then
   begin
     FMediator:= TtiModelMediator.Create(Self);
     FMediator.Name:= 'ProductListMediator';
-    FMediator.AddComposite('Description(150,"Description",<);Category.Description(80,"Category",|)', sgProductList);
+    FMediator.AddComposite('Description(150,"Description",<);Category.Description(50,"Category")', sgProductList);
   end;
   FMediator.Subject:= gInventoryManager.ProductList;
   FMediator.Active:= True;
